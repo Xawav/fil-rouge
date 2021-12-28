@@ -29,8 +29,8 @@ int main(){
     }
 
     // objects update.
-    conductor.flush()
-    window.clear(sf::Color::Black);
+    conductor.flush();
+      window.clear(sf::Color::Black);
     // TODO
     window.display();
   }

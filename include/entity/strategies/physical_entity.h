@@ -1,6 +1,7 @@
 #ifndef PHYSICAL_ENTITY
 #define PHYSICAL_ENTITY
 #include "strategy.h"
+#include <vector>
 #include <SFML/Graphics/Transformable.hpp>
 
 class Hitbox{};
@@ -18,18 +19,18 @@ private:
     //position, rotation etc in the parent class Transformable
 
     Hitbox physicalHitbox; // boolean solid (or touchable ?) in here
-    
-    unsigned double mass; //mass > 0
+
+    double mass; //mass > 0
     signed short gravityReaction; //-1 if the PhysicalEntity is likely to fly
-    unsigned double bouncyness; // [0,1] absorb every momentum (0) or none (1), maybe it will increase it's internal energy ( to satisfy conservation of energy)
+    double bouncyness; // [0,1] absorb every momentum (0) or none (1), maybe it will increase it's internal energy ( to satisfy conservation of energy)
     double internalEnergy; //for characters that can absorb energy and then liberate it ?
     double electricCharge; //mdr
 
 public:
-    static void correction(Vector<PhysicalEntity> phxEtts, Vector<Vector<double,double>> correctionMatrix);
+    static void
+    correction(std::vector<PhysicalEntity> phxEtts, std::vector<std::vector<double, double>> correctionMatrix);
 
-    Hitbox getHitbox();
-    void setHitbox(Hitbox newHitbox);
+
 
     //setPosition already handle in parent class Transformable: Google "sfml Transformable"
 
@@ -41,19 +42,35 @@ public:
     */
 
     PhysicalEntity(/* args */);
+
     ~PhysicalEntity();
+
+    //getters and setters ...
+    void setMass(double _mass);
+
+    double getMass();
+
+    void setHitbox(Hitbox &_Hitbox); //with stored reference...
+    Hitbox getHitbox();
+
+    void setGravityReaction(signed short _gravityReaction);
+
+    signed short getGravityReaction();
+
+    void setBouncyness(double _bouncyness);
+
+    double getBouncyness();
+
+    void setInternalEnergy(double _internalEnergy);
+
+    double getInternalEnergy();
+
+    void setElectricCharge(double eC);
+
+    double getElectricCharge();
+
 };
 
-// in cpp :
-
-PhysicalEntity::PhysicalEntity(/* args */)
-{
-    //think to instantiate the parent Transformable attributes
-}
-
-PhysicalEntity::~PhysicalEntity()
-{
-}
 
 
 
